@@ -57,7 +57,7 @@ function SignIn() {
         <button
           onClick={() => refetch()}
           disabled={isLoading}
-          className="w-full bg-blue-600 hover:bg-blue-700 transition-colors text-white font-medium py-3 px-6 rounded-lg shadow-md disabled:opacity-50"
+          className="w-full bg-blue-600 cursor-pointer hover:bg-blue-700 transition-colors text-white font-medium py-3 px-6 rounded-lg shadow-md disabled:opacity-50"
         >
           {isLoading ? 'Redirecting...' : '🔐 Login with Esigns'}
         </button>
