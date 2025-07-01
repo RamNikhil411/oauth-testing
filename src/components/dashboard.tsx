@@ -58,7 +58,7 @@ const Dashboard = () => {
   });
 
   if (isLoading) return <p className="p-4">🔄 Loading...</p>;
-  if (isError) return <p className="p-4 text-red-600">❌ Error fetching user</p>;
+  if (isError) return <p className="p-4  text-red-600">❌ Error fetching user</p>;
 
   return (
     <div className="p-6 space-y-4">
