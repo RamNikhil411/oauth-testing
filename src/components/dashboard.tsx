@@ -1,8 +1,7 @@
-import React from "react";
-import { useSearch } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import TanStackTable from "../components/core/TanstackTable";
+import { useSearch } from "@tanstack/react-router";
 import { DocsColumns } from "../components/core/DocsColumns";
+import TanStackTable from "../components/core/TanstackTable";
 
 const Dashboard = () => {
   const { user_id } = useSearch({ from: "/dashboard" });
@@ -33,7 +32,7 @@ const Dashboard = () => {
 
   const company_id = userData?.data?.workspace_id;
 
-  const { data: documentsData, isLoading: docsLoading } = useQuery({
+  const { data: documentsData } = useQuery({
     queryKey: ["documents", company_id],
     queryFn: async () => {
       const token = localStorage.getItem("access_token");
