@@ -4,7 +4,7 @@ import Dashboard from '@/components/dashboard'
 
 export const Route = createFileRoute('/dashboard')({
   validateSearch: z.object({
-    user_id: z.string(), // ✅ this makes `useSearch` typed
+    user_id: z.string(), 
   }),
   component: Dashboard,
 })
