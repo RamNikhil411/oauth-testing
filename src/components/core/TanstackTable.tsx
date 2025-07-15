@@ -1,17 +1,5 @@
-import {
-  useReactTable,
-  getCoreRowModel,
-  getPaginationRowModel,
-  flexRender,
-} from "@tanstack/react-table";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Pagination,
   PaginationContent,
@@ -19,8 +7,6 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -28,6 +14,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  flexRender,
+  getCoreRowModel,
+  getPaginationRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
 import { useState } from "react";
 
 interface TanStackTableProps {
@@ -36,6 +28,7 @@ interface TanStackTableProps {
   pageIndex: number;
   pageSize: number;
   pageCount?: number;
+  totalCount?: number;
   onPageChange: (newPageIndex: number) => void;
   onPageSizeChange: (newPageSize: number) => void;
   loading?: boolean;
@@ -47,6 +40,7 @@ export default function TanStackTable({
   pageIndex,
   pageSize,
   pageCount,
+  totalCount = 0,
   onPageChange,
   onPageSizeChange,
   loading = false,
@@ -83,6 +77,10 @@ export default function TanStackTable({
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
+                {/* S.No header */}
+                <th className="px-4 py-2 text-left text-sm font-medium border-b border-muted sticky top-0 bg-white z-10">
+                  S.No
+                </th>
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
@@ -102,7 +100,7 @@ export default function TanStackTable({
             {loading ? (
               <tr>
                 <td
-                  colSpan={columns.length}
+                  colSpan={columns.length + 1}
                   className="text-center py-8 text-sm"
                 >
                   🔄 Loading...
@@ -111,7 +109,7 @@ export default function TanStackTable({
             ) : data?.length === 0 ? (
               <tr>
                 <td
-                  colSpan={columns.length}
+                  colSpan={columns.length + 1}
                   className="text-center py-8 text-sm"
                 >
                   No results found.
@@ -120,6 +118,11 @@ export default function TanStackTable({
             ) : (
               table.getRowModel().rows.map((row) => (
                 <tr key={row.id}>
+                  {/* S.No cell */}
+                  <td className="px-4 py-2 text-sm border-b border-muted whitespace-nowrap">
+                    {pageIndex * pageSize + row.index + 1}
+                  </td>
+
                   {row.getVisibleCells().map((cell) => (
                     <td
                       key={cell.id}
@@ -199,7 +202,10 @@ export default function TanStackTable({
           <span className="text-sm">Rows per page:</span>
           <Select
             value={String(pageSize)}
-            onValueChange={(value) => onPageSizeChange(Number(value))}
+            onValueChange={(value) => {
+              onPageSizeChange(Number(value));
+              setGotoPage("");
+            }}
           >
             <SelectTrigger className="w-[80px]">
               <SelectValue />
@@ -212,6 +218,13 @@ export default function TanStackTable({
               ))}
             </SelectContent>
           </Select>
+        </div>
+
+        {/* Total Count Info */}
+        <div className="text-sm text-muted-foreground">
+          Showing{" "}
+          {data.length === 0 ? 0 : pageIndex * pageSize + 1} to{" "}
+          {Math.min((pageIndex + 1) * pageSize, totalCount)} of {totalCount} results
         </div>
       </div>
     </div>

@@ -2,11 +2,7 @@
 import type { ColumnDef } from "@tanstack/react-table";
 
 export const DocsColumns: ColumnDef<any>[] = [
-  {
-    accessorKey: "serial",
-    header: "S.No",
-    cell: ({ row }) => row.index + 1,
-  },
+
   {
     accessorKey: "title",
     header: "Title",

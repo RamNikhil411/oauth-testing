@@ -46,7 +46,7 @@ function CallbackPage() {
       setTimeout(() => {
         navigate({
           to: '/dashboard',
-          search: { user_id: data?.user?.id },
+          search: { user_id: data?.user?._id },
           replace: true,
         })
       }, 1000)
@@ -55,7 +55,7 @@ function CallbackPage() {
 
   useEffect(() => {
     if (isError) {
-      console.error('❌ Token exchange failed:', (error as any).message)
+    navigate({ to: '/signin', replace: true })
       // Optional fallback
     }
   }, [isError, error])

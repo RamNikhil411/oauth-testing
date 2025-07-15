@@ -90,11 +90,10 @@ const Dashboard = () => {
   })
 
   useEffect(() => {
-    if(!selectedWorkspace){
+    if (!selectedWorkspace) {
       setSelectedWorkspace(workspaces?.data[0])
     }
   }, [workspaces])
-
 
   if (isLoading) return <p className="p-4">🔄 Loading...</p>
   if (isError) return <p className="p-4 text-red-600">❌ Error fetching user</p>
@@ -112,20 +111,21 @@ const Dashboard = () => {
           setSelectedWorkspace={setSelectedWorkspace}
         />
       </div>
-     <div className='relative'>
-      <TanStackTable
-        data={documentsData?.data || []}
-        columns={DocsColumns}
-        pageIndex={pageIndex}
-        pageSize={pageSize}
-        pageCount={pageCount}
-        onPageChange={setPageIndex}
-        onPageSizeChange={(newSize) => {
-          setPageSize(newSize)
-          setPageIndex(0)
-        }}
-        loading={isDocsLoading || isDocsFetching}
-      />
+      <div className="relative">
+        <TanStackTable
+          data={documentsData?.data || []}
+          columns={DocsColumns}
+          pageIndex={pageIndex}
+          pageSize={pageSize}
+          pageCount={pageCount}
+          totalCount={totalDocs} // ✅ Add this line
+          onPageChange={setPageIndex}
+          onPageSizeChange={(newSize) => {
+            setPageSize(newSize)
+            setPageIndex(0)
+          }}
+          loading={isDocsLoading || isDocsFetching}
+        />
       </div>
     </div>
   )
