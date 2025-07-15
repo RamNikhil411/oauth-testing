@@ -18,7 +18,7 @@ export interface Workspace {
   user_types: UserType[]
 }
 
-export interface UserType {
+export interface UserType { //deploy
   user_type_id: string
   user_type_name: string
 }
