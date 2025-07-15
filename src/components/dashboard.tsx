@@ -118,7 +118,7 @@ const Dashboard = () => {
           pageIndex={pageIndex}
           pageSize={pageSize}
           pageCount={pageCount}
-          totalCount={totalDocs} // ✅ Add this line
+          totalCount={totalDocs}
           onPageChange={setPageIndex}
           onPageSizeChange={(newSize) => {
             setPageSize(newSize)
