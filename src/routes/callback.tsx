@@ -56,7 +56,7 @@ function CallbackPage() {
   useEffect(() => {
     if (isError) {
     navigate({ to: '/signin', replace: true })
-      // Optional fallback
+ 
     }
   }, [isError, error])
 
